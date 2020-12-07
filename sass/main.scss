@@ -1,0 +1,49 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-weight: 300;
+}
+:root {
+  --cols: 8;
+  --rows: 9;
+  --width: calc((50px * var(--rows)) + 10px);
+  --height: calc((50px * var(--cols)) + 10px);
+}
+
+@font-face {
+  font-family: "DIGITALDREAM";
+  src: url("../assets/DIGITALDREAM.ttf");
+}
+html {
+  font-family: "Oswald", sans-serif;
+  font-size: 10px;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #534e52;
+}
+
+//import variables
+@import "var";
+
+h1 {
+  margin-bottom: 10px;
+  font-size: 4rem;
+  color: darken($panel, 5%);
+}
+
+.game {
+  min-width: 600px;
+  height: 700px;
+  background: $panel;
+  border: 10px solid darken($panel, 5%);
+}
+
+@import "header";
+@import "tile";
+@import "difficulty-cont";
