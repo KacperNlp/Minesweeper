@@ -1,8 +1,14 @@
+import {Settigns} from './Settings.js'
+
 class Game{
     constructor({panel}){
         //assign game/game panel to property 
         this.panel = panel;
     }
+
+    //classes
+    #settings = new Settigns();
+
     //init animation and 
     start(){
         this.#gamePanelFadeIn();
@@ -21,7 +27,7 @@ class Game{
 
     //start new game
     #startGame(){
-        console.log('start new game')
+        
     }
 }
 

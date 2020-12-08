@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:cc="http://web.resource.org/cc/"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+    xmlns:ns1="http://sozi.baierouge.fr"
+    enable-background="new 0 0 792 612"
+    xml:space="preserve"
+    version="1.1"
+    y="0px"
+    x="0px"
+    viewBox="0 0 792 612"
+  >
+<g
+      id="Layer_1"
+    >
+		<line
+        y2="93.417"
+        x1="308.42"
+        x2="308.42"
+        stroke="#000000"
+        stroke-linecap="round"
+        stroke-miterlimit="10"
+        y1="612"
+        stroke-width="10"
+    />
+</g
+  >
+<g
+      id="Layer_2"
+    >
+	<path
+        d="m313.62 93.417s0 29.222 133.32 27.396 126.02 20.09 126.02 20.09-49.02-9.132-114.92 29.222c-65.896 38.354-144.43 27.396-144.43 27.396"
+        fill="#ED1C24"
+    />
+</g
+  >
+<metadata
+    ><rdf:RDF
+      ><cc:Work
+        ><dc:format
+          >image/svg+xml</dc:format
+        ><dc:type
+            rdf:resource="http://purl.org/dc/dcmitype/StillImage"
+        /><cc:license
+            rdf:resource="http://creativecommons.org/licenses/publicdomain/"
+        /><dc:publisher
+          ><cc:Agent
+              rdf:about="http://openclipart.org/"
+            ><dc:title
+              >Openclipart</dc:title
+            ></cc:Agent
+          ></dc:publisher
+        ><dc:title
+          >Red Flag</dc:title
+        ><dc:date
+          >2012-06-19T14:54:12</dc:date
+        ><dc:description
+          >Simple red triangular flag.</dc:description
+        ><dc:source
+          >https://openclipart.org/detail/170768/red-flag-by-ky1en1te-170768</dc:source
+        ><dc:creator
+          ><cc:Agent
+            ><dc:title
+              >ky1en1te</dc:title
+            ></cc:Agent
+          ></dc:creator
+        ><dc:subject
+          ><rdf:Bag
+            ><rdf:li
+              >flag</rdf:li
+            ><rdf:li
+              >pennant</rdf:li
+            ><rdf:li
+              >red flag</rdf:li
+            ></rdf:Bag
+          ></dc:subject
+        ></cc:Work
+      ><cc:License
+          rdf:about="http://creativecommons.org/licenses/publicdomain/"
+        ><cc:permits
+            rdf:resource="http://creativecommons.org/ns#Reproduction"
+        /><cc:permits
+            rdf:resource="http://creativecommons.org/ns#Distribution"
+        /><cc:permits
+            rdf:resource="http://creativecommons.org/ns#DerivativeWorks"
+        /></cc:License
+      ></rdf:RDF
+    ></metadata
+  ></svg
+>
