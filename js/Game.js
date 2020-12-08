@@ -1,5 +1,6 @@
 import {Settings} from './Settings.js'
 import {Cells} from './Cells.js'
+import {Flags} from './Flags.js'
 
 class Game{
     constructor({panel,cellsCont}){
@@ -12,6 +13,7 @@ class Game{
     //classes
     #settings = new Settings();
     #cells = new Cells();
+    #flags;
 
     //init animation and 
     start(){
@@ -30,9 +32,14 @@ class Game{
     }
 
     //start new game
-    #startGame(){
+    #startGame(rows = this.#settings.difficulty[0].rows, cols = this.#settings.difficulty[0].cols, mines = this.#settings.difficulty[0].mines){
+        this.#flags = new Flags(mines);
+
         //create cells
-        this.#cells.generateCells(this.cellsCont)
+        this.#cells.generateCells(this.cellsCont, rows, cols, mines)
+
+        this.#cells.flags = this.#flags;
+
         //event for all cells
         this.#cells.addEvent();
     }

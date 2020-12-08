@@ -25,4 +25,24 @@ export class Cell extends WorkWithHtml{
             this.cell.classList.add('cell--show');
         }
     }
+
+    //set flag
+    setFlag(flags){
+        if(!flags && !this.isFlagged) return null; //if numberOfFlags == 0 and user tries to set a flag, just doesn't do anything  
+
+        //init flag (add/remove icon)
+        this.cell.classList.toggle('cell--flag')
+        this.cell.classList.toggle('fas')
+        this.cell.classList.toggle('fa-flag')
+
+        if(this.isFlagged){//user removed flag in cell
+            //change value of property
+            this.isFlagged = false;
+            return false;
+        }else if(!this.isFlagged && !!flags){ //if cell don't have flag and the number of flags is more than 0, then you can set flag on this cell /user add flag to cell
+            //change value of property
+            this.isFlagged = true;
+            return true;
+        }
+    }
 }

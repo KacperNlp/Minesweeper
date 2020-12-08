@@ -1,14 +1,12 @@
-import {Settings} from './Settings.js';
 import {Cell} from './Cell.js';
 
 export class Cells{
     cells = []; //array of all cells
 
-    //classes
-    #settings = new Settings(); //implementation class Settings to get default difficulty of game
+    flags; //in this property will be class of Flags from main class (Game)
 
     //generate cells by two loops. first loop uses rows, the second uses cols
-    generateCells(cont, rows = this.#settings.difficulty[0].rows, cols = this.#settings.difficulty[0].cols, mines = this.#settings.difficulty[0].mines){
+    generateCells(cont, rows, cols, mines){
 
         //fist loop (rows)
         for(let row = 0; row < rows; row++){
@@ -45,7 +43,17 @@ export class Cells{
     //event listener for all cells
     addEvent(){
         this.cells.forEach(cell =>{
-            cell.cell.addEventListener('click', cell.showCell)
+            cell.cell.addEventListener('click', cell.showCell)//show what is under the cell
+            cell.cell.addEventListener('contextmenu', this.#setFlag.bind(this, cell));//set flag on cell
         })
+    }
+
+    #setFlag(cell, event){
+        event.preventDefault();
+
+        //set a flag in cell
+        const flagWasSet = cell.setFlag(this.flags.numberOfFlags); //return true or fals, this value is needed in function changeValueOfFlags to increment or decrement the value
+        //increasing or decreasing the number of flags
+        this.flags.changeValueOfFlags(flagWasSet)
     }
 }

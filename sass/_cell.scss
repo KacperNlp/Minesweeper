@@ -8,6 +8,9 @@
 }
 
 .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 40px;
   height: 40px;
   cursor: pointer;
@@ -24,5 +27,11 @@
   }
   &--show:nth-child(odd) {
     background: $even-bg-under;
+  }
+
+  //set flagg
+  &--flag {
+    color: pink;
+    font-size: 2rem;
   }
 }
