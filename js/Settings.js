@@ -1,4 +1,4 @@
-export class Settigns{
+export class Settings{
     constructor(){
         this.difficulty =[{
             rows:9, 

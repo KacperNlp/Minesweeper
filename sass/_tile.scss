@@ -1,4 +1,4 @@
-.tiles {
+.cells {
   display: flex;
   flex-wrap: wrap;
   width: var(--width);
@@ -7,21 +7,22 @@
   border: 5px solid darken($panel, 10);
 }
 
-.tile {
+.cell {
   width: 40px;
   height: 40px;
   cursor: pointer;
-  transition: 0.3s;
   &:nth-child(odd) {
     background: darken($panel, 20);
-    &:hover {
-      background: darken($panel, 30);
-    }
   }
   &:nth-child(even) {
     background: darken($panel, 10);
-    &:hover {
-      background: darken($panel, 15);
-    }
+  }
+
+  //shwo
+  &--show:nth-child(even) {
+    background: $odd-bg-under;
+  }
+  &--show:nth-child(odd) {
+    background: $even-bg-under;
   }
 }

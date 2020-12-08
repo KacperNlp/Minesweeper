@@ -1,15 +1,17 @@
-import {Settigns} from './Settings.js'
-import {Cell} from './Cell.js'
+import {Settings} from './Settings.js'
+import {Cells} from './Cells.js'
 
 class Game{
-    constructor({panel}){
+    constructor({panel,cellsCont}){
         //assign game/game panel to property 
         this.panel = panel;
+        //cells container
+        this.cellsCont = cellsCont;
     }
 
     //classes
-    #settings = new Settigns();
-    #cell = new Cell();
+    #settings = new Settings();
+    #cells = new Cells();
 
     //init animation and 
     start(){
@@ -30,12 +32,15 @@ class Game{
     //start new game
     #startGame(){
         //create cells
-        
+        this.#cells.generateCells(this.cellsCont)
+        //event for all cells
+        this.#cells.addEvent();
     }
 }
 
 const game = new Game({
     panel: document.getElementById('game'),
+    cellsCont: document.getElementById('cells-cont')
 })
 
 game.start();
