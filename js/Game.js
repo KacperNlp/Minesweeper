@@ -1,4 +1,5 @@
 import {Settigns} from './Settings.js'
+import {Cell} from './Cell.js'
 
 class Game{
     constructor({panel}){
@@ -8,6 +9,7 @@ class Game{
 
     //classes
     #settings = new Settigns();
+    #cell = new Cell();
 
     //init animation and 
     start(){
@@ -27,6 +29,7 @@ class Game{
 
     //start new game
     #startGame(){
+        //create cells
         
     }
 }
