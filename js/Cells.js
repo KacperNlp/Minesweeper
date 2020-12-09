@@ -7,52 +7,56 @@ export class Cells{
 
     //generate cells by two loops. first loop uses rows, the second uses cols
     generateCells(cont, rows, cols, mines){
-
+        const allCells = [];
         //fist loop (rows)
         for(let row = 0; row < rows; row++){
             //second loop (cols)
+            const colArray = [];
             for(let col = 0; col < cols; col++){
                 const cell = new Cell(row, col); //create cell 
                 cont.appendChild(cell.addToHtml());//append to Html
-                this.cells.push(cell);//push cell to array of cells
+                colArray.push(cell);//push cell to array of cells
             }
+            allCells.push(colArray)//push array with one row to main array 
         }
 
+        //assaign the main array of cells to global property this.cells
+        this.cells = allCells;
+
         //add mines to cells
-        this.#addMines(mines);
+       this.#addMines(rows, cols, mines);
 
     }
 
-    #addMines(mines){
+    #addMines(rows, cols, mines){
         let numberOfMines = mines;
 
         //this loop runs until numberOfMines > 0;
         while(numberOfMines > 0){
-            //draw random indef of cell
-            const id = Math.floor(Math.random() * this.cells.length);
+            //position x of cell
+            const row = Math.floor(Math.random() * rows);
+            //position y of cell
+            const col = Math.floor(Math.random() * cols);
             
             //check that this cell doesn't have mine
-            if(!this.cells[id].hasMine){
+            if(!this.cells[row][col].hasMine){
                 //if it's true than add mine to this cell and decrease numberOfMines
-                this.cells[id].hasMine = true;
+                this.cells[row][col].hasMine = true;
                 numberOfMines--;
             }
         }
     }
 
-    //event listener for all cells
-    addEvent(){
-        this.cells.forEach(cell =>{
-            cell.cell.addEventListener('click', cell.showCell)//show what is under the cell
-            cell.cell.addEventListener('contextmenu', this.#setFlag.bind(this, cell));//set flag on cell
-        })
-    }
+    setFlag=(e)=>{
+        
+        e.preventDefault();
 
-    #setFlag(cell, event){
-        event.preventDefault();
+        //cell position on x (rows) and y (cols)
+        const row = parseInt(e.target.getAttribute('data-x'));
+        const col = parseInt(e.target.getAttribute('data-y'));
 
         //set a flag in cell
-        const flagWasSet = cell.setFlag(this.flags.numberOfFlags); //return true or fals, this value is needed in function changeValueOfFlags to increment or decrement the value
+        const flagWasSet = this.cells[row][col].setFlag(this.flags.numberOfFlags); //return true or fals, this value is needed in function changeValueOfFlags to increment or decrement the value
         //increasing or decreasing the number of flags
         this.flags.changeValueOfFlags(flagWasSet)
     }

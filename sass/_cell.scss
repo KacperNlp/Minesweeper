@@ -34,4 +34,11 @@
     color: pink;
     font-size: 2rem;
   }
+
+  //mine/bomb
+  &--mine {
+    background: rgb(128, 31, 31) !important;
+    color: #ddd;
+    font-size: 3rem;
+  }
 }
