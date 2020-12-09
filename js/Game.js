@@ -82,7 +82,7 @@ class Game extends Cells{
         }
     }
 
-    //checks that this cell has a mine
+    //get event target
     clickOnCell=(e)=>{
         //cell id
         const rowId = parseInt(e.target.getAttribute('data-x'));
@@ -90,14 +90,21 @@ class Game extends Cells{
 
         const cell = this.cells[rowId][colId];
 
+        this.#checksCell(cell)
+
+    }
+
+    //checks that this cell has a mine
+    #checksCell(cell){
         const hasMine = cell.showCell();//this variable will have true or false 
 
         //if hasMine has the truth (hasMine == true) it's means the cell has a mine
         if(hasMine) return this.#mineExploded();
 
         //this function checks if cells around cell of the event have mines
-        this.#aroundCells(rowId, colId);
+        this.#aroundCells(cell.x, cell.y);
     }
+
 
     //when mine exploded, then show all cells with mines
     #mineExploded(){
@@ -151,6 +158,18 @@ class Game extends Cells{
 
             //show number of mines in cell
             cell.textContent = minesAround;
+
+            return;
+        }else if(!minesAround){
+            //if cells around event cell haven't mines, show them all
+            for(let row = Math.max(rowId - 1, 0); row <= Math.min(rowId + 1, this.cells.length - 1); row++){
+                //all cells up to three cols at the left, right and on the same col where is event cell 
+                for(let col = Math.max(colId - 1, 0); col<= Math.min(colId + 1, this.cells[row].length - 1); col++){
+                        if(!(col === colId && row === rowId) && !this.cells[row][col].isShown){
+                             this.#checksCell(this.cells[row][col])
+                        }
+                }
+            }
         }
     }
 
