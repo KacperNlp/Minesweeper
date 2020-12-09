@@ -14,7 +14,7 @@ export class Settings{
             rows:25, 
             cols:25, 
             mines:99, 
-            lvl:'normal'
+            lvl:'hard'
         }];
     }
 }

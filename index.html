@@ -13,6 +13,14 @@
 </head>
 
 <body>
+
+    <div class="message message--hidden">
+        <div class="message__cont">
+            <button class="message__close active"></button>
+            <p class="message__txt">You WON!</p>
+            <p class="message__score">Score: 452</p>
+        </div>
+    </div>
     <h1>Mines<span>Weeper</span></h1>
     <main id="game" class="game">
         <header class="game-header">
@@ -20,7 +28,7 @@
                 <span class="fas fa-flag"></span>
                 <p id="flags">10</p>
             </div>
-            <div class="game-header__face-btn" id="btn-icon">
+            <div class="game-header__face-btn" id="btn-icon" data-restart>
                 <svg class="header__button">
                     <use href="./assets/sprite.svg#neutral"></use>
                 </svg>

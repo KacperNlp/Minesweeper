@@ -2,6 +2,8 @@ import {Settings} from './Settings.js';
 import {Cells} from './Cells.js';
 import {Flags} from './Flags.js';
 import {Timer} from './Timer.js';
+import {WorkWithHtml} from './WorkWithHtml.js';
+import {Message} from './Message.js';
 
 class Game extends Cells{
     constructor({panel,cellsCont}){
@@ -20,8 +22,18 @@ class Game extends Cells{
     //classes
     #settings = new Settings();
     #timer = new Timer();
+    #html = new WorkWithHtml();
+    #message = new Message();
+
     //number of flags
     #flags;
+    #buttons = {
+        easy: this.#html.get('[data-lvl="easy"]'),
+        normal: this.#html.get('[data-lvl="normal"]'),
+        hard: this.#html.get('[data-lvl="hard"]'),
+        own: this.#html.get('[data-lvl="own"]'),
+        restart: this.#html.get('[data-restart]'),
+    }
 
     //game result
     #cellsToUncovered;
@@ -74,11 +86,14 @@ class Game extends Cells{
         this.flags = this.#flags;//set number on flags form 
 
         //event for all cells
-        this.addEvent(rows, cols);
+        this.#addEvent(rows, cols);
+
+        //add event listeners for buttons in settings and one button on top (btn of restart)
+        this.#eventForBtn();
     }
 
     //event listener for all cells
-    addEvent(rows, cols){
+    #addEvent(rows, cols){
 
         //loop of rows
         for(let row = 0; row < rows; row++){
@@ -92,12 +107,14 @@ class Game extends Cells{
 
     //get event target
     clickOnCell=(e)=>{
-        //cell id
+        //cell id (x/y or row/col)
         const rowId = parseInt(e.target.getAttribute('data-x'));
         const colId = parseInt(e.target.getAttribute('data-y'));
 
+        //get cell
         const cell = this.cells[rowId][colId];
 
+        //checks that this cell has a mine
         this.#checksCell(cell)
 
     }
@@ -187,14 +204,63 @@ class Game extends Cells{
         }
     }
 
+    //event for buttons in settings and one button on top
+    #eventForBtn(){
+        //easy
+        this.#buttons.easy.addEventListener('click', this.#newGame)
+        //normal
+        this.#buttons.normal.addEventListener('click', this.#newGame)
+        //hard
+        this.#buttons.hard.addEventListener('click', this.#newGame)
+        //own settings
+        //this.#buttons.easy.addEventListener('click', this.#newGame)
+        //restart (the game will starts with the same difficulty lvl it had before)
+        this.#buttons.restart.addEventListener('click', this.#newGame)
+    }
+
+    #newGame=(e)=>{
+
+        //get the value of btn data-lvl attribute
+        const btnValue = e.target.getAttribute('data-lvl')
+        let lvl;  
+
+        //if user click easy, normal or hard
+        if(btnValue === 'easy' || btnValue === 'normal' || btnValue === 'hard'){
+
+           //set settings by the value of btn data-lvl attribute 
+           this.#settings.difficulty.forEach(dif =>{
+               if(dif.lvl == btnValue) lvl = dif;
+           })
+
+        }else{
+            //if user click restart, just set the same settings
+            lvl = {
+                rows: this.#rows,
+                cols: this.#cols,
+                mines: this.#mines,
+            }
+        }
+        //remove event listener from cells
+        this.#removeEventListener();
+
+        //start new game
+        this.#startGame(lvl.rows, lvl.cols, lvl.mines);
+    }
+
     //game over
     #gameOver(result){
-        //remove event listener
+        //remove event listener from cells
         this.#removeEventListener();
+        //clearInterval - stop timer
         this.#timer.stopTimer();
 
-        if(!result) console.log('przegrałeś!')
-        else if(result) console.log('wygrałeś!')
+        //show message
+        if(!result){
+            this.#message.showMessage(result, this.#timer.time)//if lost
+        }
+        else if(result){
+            this.#message.showMessage(result, this.#timer.time)//if won
+        }
     }
 
     #restartAll(){
