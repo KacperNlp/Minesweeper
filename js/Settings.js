@@ -2,7 +2,7 @@ export class Settings{
     constructor(){
         this.difficulty =[{
             rows:8, 
-            cols:9, 
+            cols:8, 
             mines:10, 
             lvl:'easy'
         },{

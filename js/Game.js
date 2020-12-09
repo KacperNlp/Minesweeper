@@ -24,6 +24,8 @@ class Game extends Cells{
     #flags;
 
     //game result
+    #cellsToUncovered;
+    #uncoveredCells = 0;
     #gameIsFinished = false;
 
     //init animation and 
@@ -45,6 +47,12 @@ class Game extends Cells{
 
     //start new game
     #startGame(rows = this.#settings.difficulty[0].rows, cols = this.#settings.difficulty[0].cols, mines = this.#settings.difficulty[0].mines){
+
+        //this is for restart all settings when user dicide to start new game
+        this.#restartAll();
+
+        //set number of cells to uncovered
+        this.#cellsToUncovered = (rows * cols) - mines;
 
         //set css variables to set the width and height of the game panel
         document.documentElement.style.setProperty('--cols', cols);
@@ -96,10 +104,16 @@ class Game extends Cells{
 
     //checks that this cell has a mine
     #checksCell(cell){
+
         const hasMine = cell.showCell();//this variable will have true or false 
 
         //if hasMine has the truth (hasMine == true) it's means the cell has a mine
         if(hasMine) return this.#mineExploded();
+        //increase number of discovered cells
+        this.#uncoveredCells++;
+
+        //if the player discovers all cells without mines, then the player wins
+        if(this.#cellsToUncovered == this.#uncoveredCells && !this.#gameIsFinished) return this.#gameOver(true);
 
         //this function checks if cells around cell of the event have mines
         this.#aroundCells(cell.x, cell.y);
@@ -180,6 +194,20 @@ class Game extends Cells{
         this.#timer.stopTimer();
 
         if(!result) console.log('przegrałeś!')
+        else if(result) console.log('wygrałeś!')
+    }
+
+    #restartAll(){
+        //restart timer 
+        this.#timer.stopTimer();
+
+        //restart number of uncovered/discovered cells
+        this.#uncoveredCells = 0;
+
+        //remove cells from game panel
+        while(this.cellsCont.firstChild){
+            this.cellsCont.removeChild(this.cellsCont.lastChild)
+        }
     }
 }
 
