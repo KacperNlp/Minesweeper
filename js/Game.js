@@ -1,6 +1,7 @@
-import {Settings} from './Settings.js'
-import {Cells} from './Cells.js'
-import {Flags} from './Flags.js'
+import {Settings} from './Settings.js';
+import {Cells} from './Cells.js';
+import {Flags} from './Flags.js';
+import {Timer} from './Timer.js';
 
 class Game extends Cells{
     constructor({panel,cellsCont}){
@@ -18,6 +19,7 @@ class Game extends Cells{
 
     //classes
     #settings = new Settings();
+    #timer = new Timer();
     //number of flags
     #flags;
 
@@ -55,6 +57,8 @@ class Game extends Cells{
 
         //set class of flags
         this.#flags = new Flags(mines);
+        //start timer
+        this.#timer.startTimer();
 
         //create cells
         this.generateCells(this.cellsCont, rows, cols, mines)
