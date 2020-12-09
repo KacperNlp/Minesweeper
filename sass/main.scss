@@ -5,10 +5,10 @@
   font-weight: 300;
 }
 :root {
-  --cols: 7;
-  --rows: 9;
-  --width: calc((40px * var(--rows)) + 10px);
-  --height: calc((40px * var(--cols)) + 10px);
+  --cols: 9;
+  --rows: 7;
+  --width: calc((40px * var(--cols)) + 10px);
+  --height: calc((40px * var(--rows)) + 10px);
 }
 
 @font-face {
@@ -40,6 +40,7 @@ h1 {
 .game {
   min-width: 600px;
   min-height: 600px;
+  padding: 40px;
   background: $panel;
   border: 10px solid darken($panel, 5%);
 }

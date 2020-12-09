@@ -44,6 +44,10 @@ class Game extends Cells{
     //start new game
     #startGame(rows = this.#settings.difficulty[0].rows, cols = this.#settings.difficulty[0].cols, mines = this.#settings.difficulty[0].mines){
 
+        //set css variables to set the width and height of the game panel
+        document.documentElement.style.setProperty('--cols', cols);
+        document.documentElement.style.setProperty('--rows', rows);
+
         //set game numbers of mines, cols and rows in global props
         this.#mines = mines;
         this.#cols = cols;

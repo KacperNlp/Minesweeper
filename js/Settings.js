@@ -1,18 +1,18 @@
 export class Settings{
     constructor(){
         this.difficulty =[{
-            rows:7, 
-            cols:9, 
+            rows:8, 
+            cols:8, 
             mines:10, 
             lvl:'easy'
         },{
-            rows:18, 
-            cols:16, 
+            rows:15, 
+            cols:15, 
             mines:40, 
             lvl:'normal'
         },{
-            rows:101, 
-            cols:99, 
+            rows:25, 
+            cols:25, 
             mines:99, 
             lvl:'normal'
         }];
