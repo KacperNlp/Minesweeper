@@ -76,14 +76,14 @@ class Game extends Cells{
         for(let row = 0; row < rows; row++){
             //loop of cols
             for(let col = 0; col < cols; col++){
-                this.cells[row][col].cell.addEventListener('click', this.eventOfCell);//show what is under the cell
+                this.cells[row][col].cell.addEventListener('click', this.clickOnCell);//show what is under the cell
                 this.cells[row][col].cell.addEventListener('contextmenu', this.setFlag);//set flag on cell
             }
         }
     }
 
     //checks that this cell has a mine
-    eventOfCell=(e)=>{
+    clickOnCell=(e)=>{
         //cell id
         const rowId = parseInt(e.target.getAttribute('data-x'));
         const colId = parseInt(e.target.getAttribute('data-y'));
@@ -93,11 +93,14 @@ class Game extends Cells{
         const hasMine = cell.showCell();//this variable will have true or false 
 
         //if hasMine has the truth (hasMine == true) it's means the cell has a mine
-        if(hasMine) this.mineExploded();
+        if(hasMine) return this.#mineExploded();
+
+        //this function checks if cells around cell of the event have mines
+        this.#aroundCells(rowId, colId);
     }
 
     //when mine exploded, then show all cells with mines
-    mineExploded(){
+    #mineExploded(){
         //show cells with mines
         for(let row = 0; row < this.#rows; row++){
             //loop of cols
@@ -119,9 +122,35 @@ class Game extends Cells{
         for(let row = 0; row < this.#rows; row++){
             //loop of cols
             for(let col = 0; col < this.#cols; col++){
-                this.cells[row][col].cell.removeEventListener('click', this.eventOfCell);//remove event with showing what is under cell
+                this.cells[row][col].cell.removeEventListener('click', this.clickOnCell);//remove event with showing what is under cell
                 this.cells[row][col].cell.removeEventListener('contextmenu', this.setFlag);//remove event with settings flags
             }
+        }
+    }
+
+    //this function checks if cells around cell of the event have mines
+    #aroundCells(rowId, colId){
+        //number of mines around event cell
+        let minesAround = 0;
+
+        //all cells up to three rows at the top, bottom and on the same row where is event cell 
+        for(let row = Math.max(rowId - 1, 0); row <= Math.min(rowId + 1, this.cells.length - 1); row++){
+            //all cells up to three cols at the left, right and on the same col where is event cell 
+            for(let col = Math.max(colId - 1, 0); col<= Math.min(colId + 1, this.cells[row].length - 1); col++){
+                    const cell = this.cells[row][col];
+                    if(cell.hasMine) minesAround++;
+            }
+        }
+
+        if(!!minesAround){
+            //get event cell
+            const cell  = this.cells[rowId][colId].cell;
+            //add color of font by number of mines around event cell 
+            cell.classList.add(`cell--${minesAround}`);
+            cell.classList.add(`cell--weight`);
+
+            //show number of mines in cell
+            cell.textContent = minesAround;
         }
     }
 
@@ -129,6 +158,7 @@ class Game extends Cells{
     #gameOver(result){
         //remove event listener
         this.#removeEventListener();
+        this.#timer.stopTimer();
 
         if(!result) console.log('przegrałeś!')
     }
