@@ -5,6 +5,7 @@ import {Timer} from './Timer.js';
 import {WorkWithHtml} from './WorkWithHtml.js';
 import {Message} from './Message.js';
 import {OwnSettings} from './OwnSettings.js';
+import {SmileIcon} from './SmileIcon.js';
 
 class Game extends Cells{
     constructor({panel,cellsCont}){
@@ -26,6 +27,7 @@ class Game extends Cells{
     #html = new WorkWithHtml();
     #message = new Message();
     #ownSettings = new OwnSettings();
+    #smileIcon = new SmileIcon();
 
     //number of flags
     #flags;
@@ -61,6 +63,7 @@ class Game extends Cells{
 
     //start new game
     #startGame(rows = this.#settings.difficulty[0].rows, cols = this.#settings.difficulty[0].cols, mines = this.#settings.difficulty[0].mines){
+        //reset reaction of icon
 
         //this is for restart all settings when user dicide to start new game
         this.#restartAll();
