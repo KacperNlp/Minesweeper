@@ -64,6 +64,7 @@ class Game extends Cells{
     //start new game
     #startGame(rows = this.#settings.difficulty[0].rows, cols = this.#settings.difficulty[0].cols, mines = this.#settings.difficulty[0].mines){
         //reset reaction of icon
+        this.#smileIcon.neutral();
 
         //this is for restart all settings when user dicide to start new game
         this.#restartAll();
@@ -198,6 +199,10 @@ class Game extends Cells{
 
             return;
         }else if(!minesAround){
+            //change icon reaction
+            this.#smileIcon.happy();
+            //after 0.5s change positive reaction to neutral
+            setTimeout(()=> this.#smileIcon.neutral(), 500)
             //if cells around event cell haven't mines, show them all
             for(let row = Math.max(rowId - 1, 0); row <= Math.min(rowId + 1, this.cells.length - 1); row++){
                 //all cells up to three cols at the left, right and on the same col where is event cell 
@@ -288,9 +293,13 @@ class Game extends Cells{
 
         //show message
         if(!result){
+            //change icon reaction to negative 
+            this.#smileIcon.sad();
             this.#message.showMessage(result, this.#timer.time)//if lost
         }
         else if(result){
+            //change icon reaction to positive 
+            this.#smileIcon.happy();
             this.#message.showMessage(result, this.#timer.time)//if won
         }
     }
