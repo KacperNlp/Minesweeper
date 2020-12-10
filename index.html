@@ -16,9 +16,24 @@
 
     <div class="message message--hidden">
         <div class="message__cont">
-            <button class="message__close active"></button>
+            <button class="message__close active" data-message></button>
             <p class="message__txt">You WON!</p>
             <p class="message__score">Score: 452</p>
+        </div>
+    </div>
+
+    <div class="own-settings own-settings--hidden">
+        <div class="own-settings__cont">
+            <button class="message__close active" data-settings></button>
+            <p><strong>Remember!</strong> You must set a minimum of one mine (if you want other cells to be clean) or at
+                least one clean cell (if you want to set mines on others)</p>
+            <p data-warning></p>
+            <form>
+                <label><input type="number" name="rows" placeholder="Number of rows" data-rows></label>
+                <label><input type="number" name="cols" placeholder="Number of cols" data-cols></label>
+                <label><input type="number" name="mines" placeholder="Number of mines" data-mines></label>
+                <button submit data-submit-settings>Set</button>
+            </form>
         </div>
     </div>
     <h1>Mines<span>Weeper</span></h1>

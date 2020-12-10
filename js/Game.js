@@ -4,6 +4,7 @@ import {Flags} from './Flags.js';
 import {Timer} from './Timer.js';
 import {WorkWithHtml} from './WorkWithHtml.js';
 import {Message} from './Message.js';
+import {OwnSettings} from './OwnSettings.js';
 
 class Game extends Cells{
     constructor({panel,cellsCont}){
@@ -24,6 +25,7 @@ class Game extends Cells{
     #timer = new Timer();
     #html = new WorkWithHtml();
     #message = new Message();
+    #ownSettings = new OwnSettings();
 
     //number of flags
     #flags;
@@ -121,6 +123,7 @@ class Game extends Cells{
 
     //checks that this cell has a mine
     #checksCell(cell){
+        if(cell.isFlagged) return
 
         const hasMine = cell.showCell();//this variable will have true or false 
 
@@ -213,11 +216,12 @@ class Game extends Cells{
         //hard
         this.#buttons.hard.addEventListener('click', this.#newGame)
         //own settings
-        //this.#buttons.easy.addEventListener('click', this.#newGame)
+        this.#buttons.own.addEventListener('click', this.#showSettings)
         //restart (the game will starts with the same difficulty lvl it had before)
         this.#buttons.restart.addEventListener('click', this.#newGame)
     }
 
+    //function of starting a new game after the player clicks buttons at the bottom (easy, normal and hard without Own) or restart button (button at the top with smile icon)
     #newGame=(e)=>{
 
         //get the value of btn data-lvl attribute
@@ -233,7 +237,7 @@ class Game extends Cells{
            })
 
         }else{
-            //if user click restart, just set the same settings
+            //if user click restart, just set the same settings (settigns from old/previous game)
             lvl = {
                 rows: this.#rows,
                 cols: this.#cols,
@@ -245,6 +249,31 @@ class Game extends Cells{
 
         //start new game
         this.#startGame(lvl.rows, lvl.cols, lvl.mines);
+    }
+
+    ///function for Own button (this function let to set your own settings)
+    #showSettings=()=>{
+        this.#ownSettings.showForm();
+        this.#ownSettings.submit.addEventListener('click', this.#eventOnSubmit)
+    }
+
+    //event on form button (submit)
+    #eventOnSubmit=(e)=>{
+        e.preventDefault();
+
+        //check if values of form are correct if they are, get them and set in global props in #ownSettings
+        this.#ownSettings.userSettings();
+
+        //if user doesn't made any mistakes in settings, then the game will restart with new setting
+        if(this.#ownSettings.settingsAreFine){
+             //remove event listener from cells
+             this.#removeEventListener();
+
+             //remove event linstener on submit
+             this.#ownSettings.submit.removeEventListener('click', this.#eventOnSubmit)
+             //start new game
+             this.#startGame(this.#ownSettings.rows, this.#ownSettings.cols, this.#ownSettings.mines);
+        }
     }
 
     //game over
