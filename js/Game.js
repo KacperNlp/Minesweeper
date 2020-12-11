@@ -38,6 +38,7 @@ class Game extends Cells{
         own: this.#html.get('[data-lvl="own"]'),
         restart: this.#html.get('[data-restart]'),
     }
+    #checksTimer;
 
     //game result
     #cellsToUncovered;
@@ -85,6 +86,8 @@ class Game extends Cells{
         this.#flags = new Flags(mines);
         //start timer
         this.#timer.startTimer();
+        //checks the time if time is over the user has lost the game
+        this.#checksTimer = setInterval(this.#timeIsOver, 1000);
 
         //create cells
         this.generateCells(this.cellsCont, rows, cols, mines)
@@ -284,8 +287,19 @@ class Game extends Cells{
         }
     }
 
+    //checks the time if time is over the user has lost the game
+    #timeIsOver=()=>{
+        if(!this.#timer.time){
+            this.#gameOver(false);
+        }
+        else null;
+    }
+
     //game over
     #gameOver(result){
+
+        //clear property which checks the Timer 
+        clearInterval(this.#checksTimer);
         //remove event listener from cells
         this.#removeEventListener();
         //clearInterval - stop timer
@@ -295,12 +309,12 @@ class Game extends Cells{
         if(!result){
             //change icon reaction to negative 
             this.#smileIcon.sad();
-            this.#message.showMessage(result, this.#timer.time)//if lost
+            this.#message.showMessage(result, this.#uncoveredCells)//if lost
         }
         else if(result){
             //change icon reaction to positive 
             this.#smileIcon.happy();
-            this.#message.showMessage(result, this.#timer.time)//if won
+            this.#message.showMessage(result, this.#uncoveredCells)//if won
         }
     }
 

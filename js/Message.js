@@ -32,7 +32,7 @@ export class Message extends WorkWithHtml{
         }else{
             //if lost
             text = 'You LOST!';
-            scoreCont = `Score: ${999 - score}`;
+            scoreCont = `Score: ${score}`;
         }
 
         //init txt and score in HTML
